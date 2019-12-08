@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StoreService } from './store.service';
 import { Stream } from './stream';
 import { Observable } from 'rxjs';
+import { addTodoOp, loadTodoOp } from './ops';
 
 export interface GlobalState {
   todos: Todo[];
@@ -21,7 +22,7 @@ export interface Todo {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  localState: Stream<GlobalState, Todos>;
+  localState: Stream<Todos>;
   todos$: Observable<Todos>;
   constructor(private store: StoreService) {}
 
@@ -31,13 +32,10 @@ export class AppComponent implements OnInit {
   }
 
   load() {
-    const vals = [{title: 'watch mr.robot'}];
-    this.localState.op( x => ({...x, todos: vals}) , (x) => x.todos);
+    this.localState.op( loadTodoOp([{title: 'watch mr.robot'}]), (x) => x.todos);
   }
 
   add( todotitle: string ) {
-    this.localState.op( (todos: Todos[]) => {
-      return ({todos: [...todos, {title: todotitle }]});
-     } , x => x.todos );
+    this.localState.op( addTodoOp(todotitle), x => x.todos );
   }
 }

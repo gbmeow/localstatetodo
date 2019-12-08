@@ -6,5 +6,5 @@ import { GlobalState } from './app.component';
   providedIn: 'root'
 })
 export class StoreService {
-  readonly state: Stream<GlobalState, GlobalState> = Stream.for();
+  readonly state: Stream<GlobalState> = Stream.for();
 }
