@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Stream } from './stream';
-import { GlobalState } from './app.component';
+import { GlobalState } from './models';
 
 @Injectable({
   providedIn: 'root'

@@ -1,9 +1,10 @@
 <!-- <app-people></app-people> -->
-<div *ngFor="let a of todos$ | async">
+<div *ngFor="let a of todos">
   {{ a.title }}
 </div>
 
 <button (click)="load()">Load</button>
 <button (click)="add('brew coffee')">Add</button>
+
 
 <router-outlet></router-outlet>

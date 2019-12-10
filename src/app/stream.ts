@@ -1,10 +1,8 @@
-import { Subject, Observable, merge, of, ReplaySubject } from 'rxjs';
+import { Subject, Observable, merge } from 'rxjs';
 import { scan, map } from 'rxjs/operators';
 
-type GenericObject = { [key: string]: any };
-type selectFn = <T, K extends GenericObject>(state: T) => K;
+type selectFn = <T, K>(state: T) => K;
 type updateFn = <B, C>(value: B[]) => C;
-
 
 export class Stream<U> {
     
@@ -26,8 +24,9 @@ export class Stream<U> {
     readSlice<D, K>(fn : any) {
       return new Stream<K>(<Observable<K>>this.stream.pipe(map(fn)), this.ops$); 
     }
-    op( fnUpdate: any, fnSelect: any );
-    op( fnUpdate: updateFn, fnSelect: selectFn ) {
+
+    op( fnUpdate: any, fnSelect: any  );
+    op( fnUpdate: updateFn, fnSelect: selectFn  ) {
         this.ops$.next( {update: fnUpdate, select: fnSelect} );
     }
 }
